@@ -4,9 +4,6 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-between items-center h-screen">
       <div>
-        <p>Text Sharing App</p>
-      </div>
-      <div>
         <p>main</p>
       </div>
       <div>
