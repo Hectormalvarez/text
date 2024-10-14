@@ -12,7 +12,5 @@ A simple, yet powerful online platform for sharing text snippets, code blocks, a
 ## Getting Started
 
 1. **Clone the repository:** `git clone https://your-repository-url.git`
-2. **Install dependencies:** `npm install` or `yarn install`
-3. **Set up environment variables:** Create a `.env.local` file based on the `.env.example` template.
-4. **Run the development server:** `npm run dev` or `yarn dev`
-5. **Open your browser:** Visit `http://localhost:3000` to access the app.
+2. **Start the development environment:** `docker-compose up`
+3. **Open your browser:** Visit `http://localhost:3000` to access the app.
