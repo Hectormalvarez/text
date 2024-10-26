@@ -40,7 +40,7 @@ const Form: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-center m-24"
     >
       <ShareCodeInput shareCode={formData.shareCode} isShared={isShared} />
       <UserTextInput
@@ -48,9 +48,6 @@ const Form: React.FC = () => {
         onChange={handleChange}
         isShared={isShared}
       />
-      {isShared && (
-        <p className="text-green-600 mt-2">Text shared successfully!</p>
-      )}
       <button
         className={`button ${
           formData.userInput === "" || isShared ? "button-inactive" : ""
@@ -60,6 +57,9 @@ const Form: React.FC = () => {
       >
         {isShared ? "Shared" : "Share"}
       </button>
+      {isShared && (
+        <p className="text-green-600 mt-2">Text shared successfully!</p>
+      )}
     </form>
   );
 };

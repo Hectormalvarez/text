@@ -18,7 +18,7 @@ const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ shareCode, isShared }) 
   };
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <label htmlFor="shareCode" className="form-label">
         Share Code:
       </label>
