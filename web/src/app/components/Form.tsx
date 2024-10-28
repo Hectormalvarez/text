@@ -4,74 +4,73 @@ import ShareCodeInput from "./ShareCodeInput";
 import UserTextInput from "./UserTextInput";
 
 const Form: React.FC = () => {
-  const [formData, setFormData] = useState({
-    shareCode: "",
-    userInput: "",
-  });
+  const [userInput, setUserInput] = useState("");
+  const [shareCode, setShareCode] = useState("");
   const [isShared, setIsShared] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    setUserInput(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true); 
+    setError(null);
 
-    // Generate a new share code
-    const newShareCode = generateShareCode();
+    try {
+      const response = await fetch('/api/text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: userInput }),
+      });
 
-    // Update formData with the new share code
-    setFormData((prevData) => ({
-      ...prevData,
-      shareCode: newShareCode,
-    }));
+      if (response.ok) {
+        const data = await response.json();
+        setShareCode(data.share_code); 
+        setIsShared(true);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || "An error occurred"); 
+      }
 
-    setIsShared(true);
-
-    // Here you would typically send the data to your backend
-    console.log({ ...formData, shareCode: newShareCode });
+    } catch (error) {
+      setError("An error occurred while saving the text.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center m-24"
+      className="flex flex-col items-center justify-center m-16"
     >
-      <ShareCodeInput shareCode={formData.shareCode} isShared={isShared} />
+      <ShareCodeInput shareCode={shareCode} isShared={isShared} />
       <UserTextInput
-        value={formData.userInput}
+        value={userInput}
         onChange={handleChange}
         isShared={isShared}
       />
       <button
-        className={`button ${
-          formData.userInput === "" || isShared ? "button-inactive" : ""
-        }`}
+        className={`button ${userInput === "" || isShared ? "button-inactive" : ""
+          }`}
         type="submit"
-        disabled={formData.userInput === "" || isShared}
+        disabled={userInput === "" || isShared || isLoading}
       >
-        {isShared ? "Shared" : "Share"}
+        {isLoading ? "Sharing..." : isShared ? "Shared" : "Share"}
       </button>
+      {error && <p className="text-red-500 mt-2">{error}</p>} {/* Display errors */}
       {isShared && (
         <p className="text-green-600 mt-2">Text shared successfully!</p>
       )}
     </form>
   );
 };
-
-function generateShareCode() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "";
-  for (let i = 0; i < 4; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    code += characters[randomIndex];
-  }
-  return code;
-}
 
 export default Form;
