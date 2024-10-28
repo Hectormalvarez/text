@@ -4,7 +4,7 @@
 
 # --- Save text ---
 echo "Testing text creation..."
-response=$(curl -s -X POST -H "Content-Type: application/json" -d '{"text":"This is a test text"}' http://localhost:5000/api/text)  # Updated endpoint
+response=$(curl -s -X POST -H "Content-Type: application/json" -d '{"text":"This is a test text"}' http://localhost/api/text)  # Updated endpoint
 share_code=$(echo "$response" | jq -r '.share_code')
 
 if [ -n "$share_code" ]; then
@@ -17,7 +17,7 @@ fi
 
 # --- Retrieve the text ---
 echo "Testing text retrieval..."
-response=$(curl -s http://localhost:5000/api/text/"$share_code")  # Updated endpoint
+response=$(curl -s http://localhost/api/text/"$share_code")  # Updated endpoint
 text=$(echo "$response" | jq -r '.text')
 
 if [ "$text" == "This is a test text" ]; then
