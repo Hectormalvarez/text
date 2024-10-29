@@ -2,6 +2,8 @@ services:
   web:
     build:
       context: ./web
+    ports:
+      - "3000:3000"
     volumes:
       - ./web:/app
       - /app/node_modules
@@ -10,6 +12,8 @@ services:
     build: 
       context: ./api
       dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
   
   nginx:
     image: nginx:latest 
