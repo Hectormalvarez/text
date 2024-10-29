@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO,
 
 class Text(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    share_code = db.Column(db.String(8), unique=True, nullable=False)
+    share_code = db.Column(db.String(6), unique=True, nullable=False)
     text = db.Column(db.Text, nullable=False)
 
 with app.app_context():
@@ -28,7 +28,7 @@ def save_text():
         logging.error('Text not provided in request')
         return jsonify({'error': 'Text is required'}), 400
 
-    share_code = ''.join(random.choices(string.ascii_letters + string.digits, k=8))  
+    share_code = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))  
 
     new_text = Text(share_code=share_code, text=text)
     db.session.add(new_text)
