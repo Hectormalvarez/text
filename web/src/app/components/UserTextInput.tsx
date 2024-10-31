@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface UserTextInputProps {
   value: string;
@@ -33,7 +33,7 @@ const UserTextInput: React.FC<UserTextInputProps> = ({
           onChange={onChange}
           readOnly={isShared}
           className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-48 resize-y ${
-            isShared ? 'bg-gray-100' : ''
+            isShared ? "bg-gray-100" : ""
           }`}
           disabled={isShared}
         />

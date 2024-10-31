@@ -5,7 +5,10 @@ interface ShareCodeInputProps {
   isShared: boolean;
 }
 
-const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ shareCode, isShared }) => {
+const ShareCodeInput: React.FC<ShareCodeInputProps> = ({
+  shareCode,
+  isShared,
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleClick = () => {
@@ -30,8 +33,8 @@ const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ shareCode, isShared }) 
         onClick={handleClick}
         className={`share-code-input ${
           isShared && shareCode
-            ? 'cursor-pointer hover:bg-gray-100 active:bg-gray-200'
-            : 'cursor-not-allowed opacity-50'
+            ? "cursor-pointer hover:bg-gray-100 active:bg-gray-200"
+            : "cursor-not-allowed opacity-50"
         }`}
         title={isShared ? "Click to copy" : "Share your text to enable copying"}
       />

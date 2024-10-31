@@ -42,11 +42,10 @@ body {
   .share-code-input {
     @apply shadow appearance-none border rounded w-full py-2 px-3 
            text-gray-700 leading-tight focus:outline-none 
-           focus:ring focus:ring-gray-500 font-mono text-4xl text-center; 
+           focus:ring focus:ring-gray-500 font-mono text-4xl text-center;
   }
 
-
-  .textarea-field { 
+  .textarea-field {
     @apply shadow appearance-none border rounded-md w-full py-2 px-3
            text-gray-700 leading-tight focus:outline-none 
            focus:ring focus:ring-gray-500 h-48 resize-y;
