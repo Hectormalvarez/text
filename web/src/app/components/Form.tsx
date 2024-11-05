@@ -72,6 +72,42 @@ const Form: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Retrieve Section */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Retrieve Text
+          </h2>
+          <form onSubmit={handleRetrieve}>
+            <div className="mb-6">
+              <label
+                htmlFor="retrieveCode"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Enter Share Code:
+              </label>
+              <input
+                type="text"
+                id="retrieveCode"
+                value={retrieveCode}
+                onChange={(e) => setRetrieveCode(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter 6-character code"
+                maxLength={6}
+              />
+            </div>
+            <button
+              className={`w-full py-2 px-4 rounded-md transition-colors ${
+                retrieveCode.length !== 6
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-500 hover:bg-green-600 text-white"
+              }`}
+              type="submit"
+              disabled={retrieveCode.length !== 6 || isLoading}
+            >
+              {isLoading ? "Retrieving..." : "Retrieve"}
+            </button>
+          </form>
+        </div>
         {/* Share Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Share Text</h2>
@@ -99,41 +135,10 @@ const Form: React.FC = () => {
             {error && <p className="text-red-500 mt-2">{error}</p>}
           </form>
         </div>
-
-        {/* Retrieve Section */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Retrieve Text</h2>
-          <form onSubmit={handleRetrieve}>
-            <div className="mb-6">
-              <label htmlFor="retrieveCode" className="block text-gray-700 font-bold mb-2">
-                Enter Share Code:
-              </label>
-              <input
-                type="text"
-                id="retrieveCode"
-                value={retrieveCode}
-                onChange={(e) => setRetrieveCode(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter 6-character code"
-                maxLength={6}
-              />
-            </div>
-            <button
-              className={`w-full py-2 px-4 rounded-md transition-colors ${
-                retrieveCode.length !== 6
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-green-500 hover:bg-green-600 text-white"
-              }`}
-              type="submit"
-              disabled={retrieveCode.length !== 6 || isLoading}
-            >
-              {isLoading ? "Retrieving..." : "Retrieve"}
-            </button>
-          </form>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Form;
+
